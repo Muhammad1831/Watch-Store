@@ -5,10 +5,10 @@ import 'package:watch_store/resource/app_dimens.dart';
 ThemeData lightThemeData() {
   return ThemeData(
     brightness: Brightness.light,
-    scaffoldBackgroundColor: LightAppColor.primaryBackGround,
-    primaryColor: LightAppColor.primary,
+    scaffoldBackgroundColor: AppColor.primaryBackGround,
+    primaryColor: AppColor.primary,
     iconTheme: const IconThemeData(
-      color: LightAppColor.icon,
+      color: AppColor.icon,
     ),
     // textfield input decoration theme
     inputDecorationTheme: InputDecorationTheme(
@@ -16,26 +16,24 @@ ThemeData lightThemeData() {
         filled: true,
         fillColor: MaterialStateColor.resolveWith((states) {
           if (states.contains(MaterialState.focused)) {
-            return LightAppColor.focusedTextField;
+            return AppColor.focusedTextField;
           } else {
-            return LightAppColor.unFocusedTextField;
+            return AppColor.unFocusedTextField;
           }
         }),
         enabledBorder: const OutlineInputBorder(
             borderRadius:
                 BorderRadius.all(Radius.circular(AppDimens.verySmall)),
             borderSide: BorderSide(
-                color: LightAppColor.textFieldBorderUnselected, width: 2)),
+                color: AppColor.textFieldBorderUnselected, width: 2)),
         focusedBorder: const OutlineInputBorder(
             borderRadius:
                 BorderRadius.all(Radius.circular(AppDimens.verySmall)),
-            borderSide: BorderSide(
-                color: LightAppColor.textFieldBorderSelected, width: 2))),
+            borderSide:
+                BorderSide(color: AppColor.textFieldBorderSelected, width: 2))),
     // elevated button theme
     elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
-      backgroundColor:
-          MaterialStateProperty.all(LightAppColor.buttonBackGround),
       shape: MaterialStateProperty.all(RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppDimens.verySmall))),
     )),

@@ -6,7 +6,7 @@ class AppButtonStyle {
   AppButtonStyle._();
 
   static ButtonStyle buttonStyle = ButtonStyle(
-      backgroundColor: MaterialStateProperty.all(LightAppColor.buttonBackGround),
+      backgroundColor: MaterialStateProperty.all(AppColor.buttonBackGround),
       shape: MaterialStateProperty.all(RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppDimens.verySmall))));
 }

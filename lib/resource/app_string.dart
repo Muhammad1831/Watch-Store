@@ -30,4 +30,40 @@ abstract class AppString {
   static const String postalCodeHint = 'کد پستی  10 رقمی خود را وارد کنید';
   static const String location = 'موقعیت مکانی';
   static const String locationHint = 'برای انتخاب موقعیت مکانی ضربه بزنید';
+
+  // home
+  static const String home = 'خانه';
+  static const String bascket = 'سبد خرید';
+  static const String profile = 'پروفایل';
+  static const String searchProduct = 'جستجوی محصولات';
+  static const String classic = 'کلاسیک';
+  static const String smart = 'هوشمند';
+  static const String digital = 'دیجیتال';
+  static const String desktop = 'رو‌میزی';
+  static const String amazing = 'شگفت انگیز';
+  static const String bestsellers = 'پرفروش‌ها';
+  static const String newest = 'جدیدترین‌ها';
+
+  // product list
+  static const String theBestSellers = 'پرفروش ترین‌ها';
+
+  // details product
+  static const String features = 'خصوصیات';
+  static const String comments = 'نظرات';
+  static const String reviews = 'نقد و بررسی';
+  static const String addToBasket = 'افزودن به سبد خرید';
+
+  // basket
+  static const String sendToAddress = 'ارسال به آدرس';
+  static const String price = 'قیمت';
+  static const String withOff = 'با تخفیف';
+  static const String continueBuyProcess = 'ادامه فرآیند خرید';
+  static const String total = 'مجموع';
+
+  // profile
+  static const String userProfile = 'پروفایل کاربر';
+  static const String termsConditions = 'قوانین و مقررات';
+  static const String delivered = 'تحویل شده';
+  static const String cancled = 'لغو شده';
+  static const String processing = 'در حال پردازش';
 }
