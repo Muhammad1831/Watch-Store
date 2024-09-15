@@ -7,4 +7,5 @@ class ScreenNames {
   static const mainScreen = '/mainScreen';
   static const productListScreen = '/productListScreen';
   static const productDetailsScreen = '/productDetailsScreen';
+  static const searchScreen = '/searchScreen';
 }

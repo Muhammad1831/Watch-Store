@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:watch_store/gen/assets.gen.dart';
-import 'package:watch_store/resource/app_color.dart';
-import 'package:watch_store/resource/app_string.dart';
+import 'package:watch_store/constant/app_color.dart';
+import 'package:watch_store/constant/app_string.dart';
 import 'package:watch_store/screens/basket_screen/basket_screen.dart';
+import 'package:watch_store/screens/basket_screen/bloc/basket_bloc.dart';
 import 'package:watch_store/screens/home_screen/home_screen.dart';
 import 'package:watch_store/screens/main_screen/widget/bottom_nav_item.dart';
 import 'package:watch_store/widgets/cart_badge.dart';
@@ -10,7 +12,7 @@ import 'package:watch_store/screens/profile_screen/profile_screen.dart';
 
 class BottomNavItemSelected {
   static const int home = 0;
-  static const int bascket = 1;
+  static const int basket = 1;
   static const int profile = 2;
 }
 
@@ -25,12 +27,12 @@ class _MainScreenState extends State<MainScreen> {
   int itemSelected = BottomNavItemSelected.home;
 
   final GlobalKey<NavigatorState> _homeKey = GlobalKey();
-  final GlobalKey<NavigatorState> _bascketKey = GlobalKey();
+  final GlobalKey<NavigatorState> _basketKey = GlobalKey();
   final GlobalKey<NavigatorState> _profileKey = GlobalKey();
 
   late final Map map = {
     BottomNavItemSelected.home: _homeKey,
-    BottomNavItemSelected.bascket: _bascketKey,
+    BottomNavItemSelected.basket: _basketKey,
     BottomNavItemSelected.profile: _profileKey,
   };
 
@@ -68,10 +70,9 @@ class _MainScreenState extends State<MainScreen> {
                               builder: (context) => const HomeScreen(),
                             )),
                     Navigator(
-                        key: _bascketKey,
+                        key: _basketKey,
                         onGenerateRoute: (settings) => MaterialPageRoute(
-                              builder: (context) => const BasketScreen(),
-                            )),
+                            builder: (context) => const BasketScreen())),
                     Navigator(
                         key: _profileKey,
                         onGenerateRoute: (settings) => MaterialPageRoute(
@@ -104,16 +105,16 @@ class _MainScreenState extends State<MainScreen> {
                           BottomNavItem(
                               onTap: () {
                                 bottomNavRouteTraveled
-                                    .add(BottomNavItemSelected.bascket);
-                                selectItem(BottomNavItemSelected.bascket);
+                                    .add(BottomNavItemSelected.basket);
+                                selectItem(BottomNavItemSelected.basket);
+                                BlocProvider.of<BasketBloc>(context)
+                                    .add(BasketInitialEvent());
                               },
                               isActive:
-                                  itemSelected == BottomNavItemSelected.bascket,
+                                  itemSelected == BottomNavItemSelected.basket,
                               iconPath: Assets.svg.bascket,
                               iconLabel: AppString.bascket),
-                          const CartBadge(
-                            numberOfProductsInBasket: 4,
-                          ),
+                          const CartBadge(),
                         ],
                       ),
                       BottomNavItem(

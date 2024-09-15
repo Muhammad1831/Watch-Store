@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:watch_store/component/app_text_style.dart';
-import 'package:watch_store/resource/app_color.dart';
+import 'package:watch_store/style/app_text_style.dart';
+import 'package:watch_store/constant/app_color.dart';
 
 // ignore: must_be_immutable
 class BottomNavItem extends StatelessWidget {

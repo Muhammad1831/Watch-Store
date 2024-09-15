@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:watch_store/resource/app_color.dart';
-import 'package:watch_store/resource/app_dimens.dart';
+import 'package:watch_store/constant/app_color.dart';
+import 'package:watch_store/constant/app_dimens.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   const CustomAppBar({super.key, required this.size, required this.child});

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:watch_store/component/app_text_style.dart';
-import 'package:watch_store/component/extension.dart';
-import 'package:watch_store/resource/app_dimens.dart';
+import 'package:watch_store/style/app_text_style.dart';
+import 'package:watch_store/style/extension.dart';
+import 'package:watch_store/constant/app_dimens.dart';
 
 // ignore: must_be_immutable
 class WatchCategories extends StatelessWidget {
@@ -39,13 +38,13 @@ class WatchCategories extends StatelessWidget {
                       colors: gradientCategory)),
               child: Padding(
                 padding: const EdgeInsets.all(AppDimens.verySmall * 0.75),
-                child: SvgPicture.asset(imageCategory),
+                child: Image.network(imageCategory),
               ),
             ),
             (AppDimens.verySmall / 2).height,
             Text(
               nameCategory,
-              style: AppTextStyle.titleMediumMed,
+              style: AppTextStyle.titleMediumReg,
             )
           ],
         ),

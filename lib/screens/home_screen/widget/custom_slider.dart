@@ -1,18 +1,16 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:watch_store/component/extension.dart';
-import 'package:watch_store/resource/app_color.dart';
-import 'package:watch_store/resource/app_dimens.dart';
+import 'package:flutter/widgets.dart';
+import 'package:watch_store/style/extension.dart';
+import 'package:watch_store/models/sliders_model.dart';
+import 'package:watch_store/constant/app_color.dart';
+import 'package:watch_store/constant/app_dimens.dart';
 
-List<String> imageList = [
-  'assets/png/watch.jpg',
-  'assets/png/watch1.png',
-  'assets/png/watch2.jpg',
-  'assets/png/watch3.jpg',
-];
-
+// ignore: must_be_immutable
 class CustomSlider extends StatefulWidget {
-  const CustomSlider({super.key});
+  CustomSlider({super.key, required this.imageList});
+
+  List<SlidersModel> imageList;
 
   @override
   State<CustomSlider> createState() => _CustomSliderState();
@@ -21,6 +19,12 @@ class CustomSlider extends StatefulWidget {
 class _CustomSliderState extends State<CustomSlider> {
   final CarouselController _carouselController = CarouselController();
   int _activeIndexIndicator = 0;
+
+  void itemSliderSelected(int index) {
+    setState(() {
+      _activeIndexIndicator = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +36,13 @@ class _CustomSliderState extends State<CustomSlider> {
           width: size.width,
           child: CarouselSlider(
               carouselController: _carouselController,
-              items: imageList
-                  .map((i) => ClipRRect(
+              items: widget.imageList
+                  .map((element) => ClipRRect(
                         borderRadius: BorderRadius.circular(AppDimens.small),
                         child: SizedBox(
                           width: size.width / 1.2,
-                          child: Image.asset(
-                            i,
+                          child: Image.network(
+                            element.image,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -50,24 +54,20 @@ class _CustomSliderState extends State<CustomSlider> {
                 autoPlayInterval: const Duration(seconds: 8),
                 autoPlayAnimationDuration: const Duration(seconds: 2),
                 autoPlayCurve: Curves.fastLinearToSlowEaseIn,
-                onPageChanged: (index, reason) {
-                  setState(() {
-                    _activeIndexIndicator = index;
-                  });
-                },
+                onPageChanged: (index, reason) => itemSliderSelected(index),
               )),
         ),
         AppDimens.small.height,
         Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: imageList
+            children: widget.imageList
                 .asMap()
                 .entries
-                .map((e) => Padding(
+                .map((element) => Padding(
                       padding: const EdgeInsets.only(left: AppDimens.small),
                       child: GestureDetector(
-                        onTap: () { 
-                          _carouselController.animateToPage(e.key,
+                        onTap: () {
+                          _carouselController.animateToPage(element.key,
                               duration: const Duration(seconds: 2),
                               curve: Curves.fastEaseInToSlowEaseOut);
                         },
@@ -76,9 +76,8 @@ class _CustomSliderState extends State<CustomSlider> {
                           width: AppDimens.small,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            border: Border.all(
-                                color: AppColor.borderIndicator),
-                            color: _activeIndexIndicator == e.key
+                            border: Border.all(color: AppColor.borderIndicator),
+                            color: _activeIndexIndicator == element.key
                                 ? AppColor.activeIndicator
                                 : AppColor.unActiveIndicator,
                           ),

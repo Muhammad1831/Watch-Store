@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:watch_store/component/app_text_style.dart';
-import 'package:watch_store/component/extension.dart';
-import 'package:watch_store/resource/app_color.dart';
-import 'package:watch_store/resource/app_dimens.dart';
-import 'package:watch_store/resource/app_string.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:watch_store/screens/basket_screen/bloc/basket_bloc.dart';
+import 'package:watch_store/style/app_text_style.dart';
+import 'package:watch_store/style/extension.dart';
+import 'package:watch_store/constant/app_color.dart';
+import 'package:watch_store/constant/app_dimens.dart';
+import 'package:watch_store/constant/app_string.dart';
 import 'package:watch_store/widgets/app_elevatedbutton.dart';
+import 'package:watch_store/widgets/app_progress_indicator.dart';
 
 class AddToBasketNavigation extends StatelessWidget {
   const AddToBasketNavigation({
     super.key,
+    required this.productId,
     required this.price,
+    required this.discountPrice,
     this.offPercent = 0,
   });
 
+  final int productId;
   final int price;
+  final int discountPrice;
   final int offPercent;
 
   @override
@@ -38,7 +45,7 @@ class AddToBasketNavigation extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '${(price.offPrice(offPercent)).separateThreeDigits} تومان'
+                      '${discountPrice.separateThreeDigits} تومان'
                           .englishToPersion,
                       style: AppTextStyle.titleSmallReg,
                     ),
@@ -72,12 +79,37 @@ class AddToBasketNavigation extends StatelessWidget {
               ],
             ),
             // add to basket button
-            AppElevatedButton(
-              height: size.height / 25,
-              width: size.width / 2.5,
-              buttonColor: AppColor.buttonBackGround,
-              buttonName: AppString.addToBasket,
-              onPressed: () {},
+            BlocConsumer<BasketBloc, BasketState>(
+              listener: (context, state) {
+                if (state is BasketAddState) {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    duration: const Duration(milliseconds: 1000),
+                    content: Text(
+                      '.با موفقیت به سبد خرید اضافه شد',
+                      style: AppTextStyle.buttonText,
+                    ),
+                    backgroundColor: AppColor.successSnackBarBackGround,
+                  ));
+                }
+              },
+              builder: (context, state) {
+                if (state is BasketLodingState) {
+                  return SizedBox(
+                      height: size.height / 25,
+                      width: size.width / 2.5,
+                      child: const AppProgressIndicator());
+                }
+                return AppElevatedButton(
+                  height: size.height / 25,
+                  width: size.width / 2.5,
+                  buttonColor: AppColor.buttonBackGround,
+                  buttonName: AppString.addToBasket,
+                  onPressed: () {
+                    BlocProvider.of<BasketBloc>(context)
+                        .add(BasketAddEvent(productId: productId));
+                  },
+                );
+              },
             )
           ],
         ),

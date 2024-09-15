@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:watch_store/component/app_text_style.dart';
-import 'package:watch_store/component/extension.dart';
+import 'package:watch_store/style/app_text_style.dart';
+import 'package:watch_store/style/extension.dart';
 import 'package:watch_store/gen/assets.gen.dart';
-import 'package:watch_store/resource/app_dimens.dart';
+import 'package:watch_store/constant/app_dimens.dart';
 
 // ignore: must_be_immutable
 class ProductCategories extends StatelessWidget {

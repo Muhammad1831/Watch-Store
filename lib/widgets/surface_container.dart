@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:watch_store/resource/app_color.dart';
-import 'package:watch_store/resource/app_dimens.dart';
+import 'package:watch_store/constant/app_color.dart';
+import 'package:watch_store/constant/app_dimens.dart';
 
 class SurfaceContainer extends StatelessWidget {
   const SurfaceContainer({super.key, required this.child});

@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:watch_store/component/app_text_style.dart';
-import 'package:watch_store/component/extension.dart';
+import 'package:watch_store/style/app_text_style.dart';
+import 'package:watch_store/style/extension.dart';
 import 'package:watch_store/gen/assets.gen.dart';
-import 'package:watch_store/resource/app_color.dart';
-import 'package:watch_store/resource/app_string.dart';
-import 'package:watch_store/resource/app_dimens.dart';
-import 'package:watch_store/route/screen_names.dart';
+import 'package:watch_store/constant/app_color.dart';
+import 'package:watch_store/constant/app_string.dart';
+import 'package:watch_store/constant/app_dimens.dart';
 import 'package:watch_store/screens/authentication/cubit/authentication_cubit.dart';
+import 'package:watch_store/screens/authentication/cubit/count_down_cubit.dart';
+import 'package:watch_store/screens/authentication/enter_active_code_screen.dart';
 import 'package:watch_store/widgets/app_elevatedbutton.dart';
+import 'package:watch_store/widgets/app_progress_indicator.dart';
 import 'package:watch_store/widgets/app_textfield.dart';
 
 // ignore: must_be_immutable
@@ -31,8 +33,8 @@ class EnterPhoneScreen extends StatelessWidget {
               // logo image
               Image.asset(
                 Assets.png.logo.path,
-                height: size.height / 6.96,
-                width: size.width / 1.37,
+                height: size.height / 7,
+                width: size.width / 1.4,
               ),
               (AppDimens.veryLarge * 1.5).height,
               // custom textField
@@ -49,24 +51,22 @@ class EnterPhoneScreen extends StatelessWidget {
               BlocConsumer<AuthenticationCubit, AuthenticationState>(
                 listener: (context, state) {
                   if (state is SentState) {
-                    Navigator.pushNamed(
-                        context, ScreenNames.enterActiveCodeScreen,
-                        arguments: phoneNumberController);
-                  } else if (state is ErrorState) {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      duration: Duration(milliseconds: 800),
-                      content: Text('شماره را درست وارد نکردید'),
-                      backgroundColor: AppColor.errorSnackBarBackGround,
-                    ));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => BlocProvider(
+                          create: (context) => CountDownCubit(),
+                          child: EnterActiveCodeScreen(
+                            number: state.mobile,
+                          ),
+                        ),
+                      ),
+                    );
                   }
                 },
                 builder: (context, state) {
                   if (state is LodingState) {
-                    return const Center(
-                      child: CircularProgressIndicator(
-                        color: AppColor.circularProgressIndicatorColor,
-                      ),
-                    );
+                    return const AppProgressIndicator();
                   }
                   return AppElevatedButton(
                       height: size.height / 18,

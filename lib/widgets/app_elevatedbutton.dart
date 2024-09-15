@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:watch_store/component/app_text_style.dart';
+import 'package:watch_store/style/app_text_style.dart';
 
 // ignore: must_be_immutable
 class AppElevatedButton extends StatelessWidget {
@@ -26,9 +26,11 @@ class AppElevatedButton extends StatelessWidget {
         onPressed: onPressed,
         style: const ButtonStyle()
             .copyWith(backgroundColor: MaterialStateProperty.all(buttonColor)),
-        child: Text(
-          buttonName,
-          style: AppTextStyle.buttonText,
+        child: FittedBox(
+          child: Text(
+            buttonName,
+            style: AppTextStyle.buttonText,
+          ),
         ),
       ),
     );

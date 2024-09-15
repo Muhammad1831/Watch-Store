@@ -11,9 +11,15 @@ final class AuthenticationInitial extends AuthenticationState {}
 
 final class LodingState extends AuthenticationState {}
 
-final class SentState extends AuthenticationState {}
+final class SentState extends AuthenticationState {
+  final String mobile;
 
-final class VerifyedState extends AuthenticationState {}
+  const SentState({required this.mobile});
+}
+
+final class VerifyedIsRegisteredState extends AuthenticationState {}
+
+final class VerifyedNotRegisteredState extends AuthenticationState {}
 
 final class ErrorState extends AuthenticationState {}
 
